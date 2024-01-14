@@ -27,6 +27,22 @@ func Filter[T any](p func(T) bool, s []T) []T {
 	return out
 }
 
+func Any[T any](p func(T) bool, s []T) bool {
+	return false
+}
+
+func All[T any](p func(T) bool, s []T) bool {
+	return false
+}
+
+func Find[T any](p func(T) bool, s []T) int {
+	return -1
+}
+
+func FindAll[T any](p func(T) bool, s []T) []int {
+	return []int{}
+}
+
 // func Reduce implements the common high-order function `reduce`. It takes a
 // function and a slice. The input function must have two parameters so that
 // the first one would be the "accumulator" and the second would be the next
