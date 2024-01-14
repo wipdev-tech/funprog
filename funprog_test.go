@@ -109,3 +109,32 @@ func TestComp(t *testing.T) {
 		t.Fatalf("Expected %v, got %v", e2, r2)
 	}
 }
+
+func TestCompR(t *testing.T) {
+	f1 := func(x int) int {
+		return x / 7
+	}
+	f2 := func(x int) int {
+		return x - 1
+	}
+	f3 := func(x int) int {
+		return x / 3
+	}
+	e1 := f3(f2(f1(49)))
+	r1 := f.CompR(f1, f2, f3)(49)
+
+	if r1 != e1 {
+		t.Fatalf("Expected %v, got %v", e1, r1)
+	}
+
+	f4 := func(x string) string {
+		return strings.ReplaceAll(x, " ", "_")
+	}
+	f5 := strings.TrimSpace
+	e2 := f5(f4(" hiyaa "))
+	r2 := f.CompR(f4, f5)(" hiyaa ")
+
+	if r2 != e2 {
+		t.Fatalf("Expected %v, got %v", e2, r2)
+	}
+}

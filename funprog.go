@@ -1,5 +1,7 @@
 package funprog
 
+import "slices"
+
 // func Map implements the common high-order function `map`. It takes a
 // function and a slice of some type, applies the function on each element of
 // the slice, and returns a new slice of the same type.
@@ -55,4 +57,11 @@ func Comp[T any](fs ...func(T) T) func(T) T {
 		rest := fs[1:]
 		return f1(Comp(rest...)(x))
 	}
+}
+
+// func CompR is the inverse of Comp. Given an arbitrary number of functions as
+// input, Comp will return a function so that Comp(f, g)(x) == g(f(x)).
+func CompR[T any](fs ...func(T) T) func(T) T {
+	slices.Reverse(fs)
+	return Comp(fs...)
 }
