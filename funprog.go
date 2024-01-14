@@ -25,6 +25,21 @@ func Filter[T any](p func(T) bool, s []T) []T {
 	return out
 }
 
+// func Reduce implements the common high-order function `reduce`. It takes a
+// function and a slice. The input function must have two parameters so that
+// the first one would be the "accumulator" and the second would be the next
+// element in the slice.
+//
+// Note that the initial value of the accumulator is set to the zero value of
+// whatever type (T) returned by Reduce.
+func Reduce[T any](f func(T, T) T, s []T) T {
+	var acc T
+	for _, v := range s {
+		acc = f(acc, v)
+	}
+	return acc
+}
+
 // func Comp implements function composition. Given an arbitrary number of
 // functions, Comp will return a function so that Comp(f, g)(x) == f(g(x))
 func Comp[T any](fs ...func(T) T) func(T) T {

@@ -1,6 +1,7 @@
 package funprog_test
 
 import (
+	"fmt"
 	"slices"
 	"strings"
 	"testing"
@@ -49,6 +50,33 @@ func TestFilter(t *testing.T) {
 	r2 := funprog.Filter(f2, s2)
 
 	if !slices.Equal(r2, e2) {
+		t.Fatalf("Expected %v, got %v", e2, r2)
+	}
+}
+
+func TestReduce(t *testing.T) {
+	s1 := []int{2, 0, 10, -1, 3}
+	f1 := func(x, y int) int {
+		if x < y {
+			return x
+		}
+		return y
+	}
+	e1 := -1
+	r1 := funprog.Reduce(f1, s1)
+
+	if r1 != e1 {
+		t.Fatalf("Expected %v, got %v", e1, r1)
+	}
+
+	s2 := []string{"hello", "world", ":)"}
+	f2 := func(x, y string) string {
+		return fmt.Sprintf("%s%c", x, y[0])
+	}
+	e2 := "hw:"
+	r2 := funprog.Reduce(f2, s2)
+
+	if r2 != e2 {
 		t.Fatalf("Expected %v, got %v", e2, r2)
 	}
 }
