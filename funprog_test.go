@@ -63,11 +63,21 @@ func TestComp(t *testing.T) {
 	f3 := func(x int) int {
 		return x / 3
 	}
-	fc := funprog.Comp(f3, f2, f1)
-	e := 2
-	r := fc(49)
+	e1 := f3(f2(f1(49)))
+	r1 := funprog.Comp(f3, f2, f1)(49)
 
-	if r != e {
-		t.Fatalf("Expected %v, got %v", e, r)
+	if r1 != e1 {
+		t.Fatalf("Expected %v, got %v", e1, r1)
+	}
+
+	f4 := func(x string) string {
+		return strings.ReplaceAll(x, " ", "_")
+	}
+	f5 := strings.TrimSpace
+	e2 := f5(f4(" hiyaa "))
+	r2 := funprog.Comp(f5, f4)(" hiyaa ")
+
+	if r2 != e2 {
+		t.Fatalf("Expected %v, got %v", e2, r2)
 	}
 }

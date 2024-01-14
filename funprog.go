@@ -25,7 +25,8 @@ func Filter[T any](p func(T) bool, s []T) []T {
 	return out
 }
 
-// func Comp implements function composition. It takes a
+// func Comp implements function composition. Given an arbitrary number of
+// functions, Comp will return a function so that Comp(f, g)(x) == f(g(x))
 func Comp[T any](fs ...func(T) T) func(T) T {
 	if len(fs) == 0 {
 		return func(x T) T {
