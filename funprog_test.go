@@ -52,3 +52,22 @@ func TestFilter(t *testing.T) {
 		t.Fatalf("Expected %v, got %v", e2, r2)
 	}
 }
+
+func TestComp(t *testing.T) {
+	f1 := func(x int) int {
+		return x / 7
+	}
+	f2 := func(x int) int {
+		return x - 1
+	}
+	f3 := func(x int) int {
+		return x / 3
+	}
+	fc := funprog.Comp(f3, f2, f1)
+	e := 2
+	r := fc(49)
+
+	if r != e {
+		t.Fatalf("Expected %v, got %v", e, r)
+	}
+}

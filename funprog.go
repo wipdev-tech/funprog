@@ -24,3 +24,18 @@ func Filter[T any](p func(T) bool, s []T) []T {
 	}
 	return out
 }
+
+// func Comp implements function composition. It takes a
+func Comp[T any](fs ...func(T) T) func(T) T {
+	if len(fs) == 0 {
+		return func(x T) T {
+			return x
+		}
+	}
+
+	return func(x T) T {
+		f1 := fs[0]
+		rest := fs[1:]
+		return f1(Comp(rest...)(x))
+	}
+}
