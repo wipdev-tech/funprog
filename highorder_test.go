@@ -162,3 +162,39 @@ func TestAll(t *testing.T) {
 		t.Fatalf("`f.All(isEven, s2)` should be false")
 	}
 }
+
+func TestFindIndex(t *testing.T) {
+	s1 := []string{"hello", "hi", "hershey"}
+	e1 := 0
+	r1 := f.FindIndex(hasPrefixH, s1)
+
+	if r1 != e1 {
+		t.Fatalf("Expected %v, got %v", e1, r1)
+	}
+
+	s2 := []int{1, 3, 5}
+	e2 := -1
+	r2 := f.FindIndex(isEven, s2)
+
+	if r2 != e2 {
+		t.Fatalf("Expected %v, got %v", e2, r2)
+	}
+}
+
+func TestFindIndices(t *testing.T) {
+	s1 := []string{"hello", "hi", "hershey"}
+	e1 := []int{0, 1, 2}
+	r1 := f.FindIndices(hasPrefixH, s1)
+
+	if !slices.Equal(r1, e1) {
+		t.Fatalf("Expected %v, got %v", e1, r1)
+	}
+
+	s2 := []int{1, 3, 5}
+	e2 := []int{}
+	r2 := f.FindIndices(isEven, s2)
+
+	if !slices.Equal(r2, e2) {
+		t.Fatalf("Expected %v, got %v", e2, r2)
+	}
+}

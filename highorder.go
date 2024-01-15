@@ -45,8 +45,31 @@ func All[T any](p func(T) bool, s []T) bool {
 	return p(s[0]) && All(p, s[1:])
 }
 
-func Find[T any](p func(T) bool, s []T) int {
+// FindIndex takes a predicate `p` and a slice `s` and returns the index of the
+// first element that satisfies `p`. It returns -1 if no element is found.
+//
+// See FindIndices if you want to return all indices.
+func FindIndex[T any](p func(T) bool, s []T) int {
+	for i, el := range s {
+		if p(el) {
+			return i
+		}
+	}
 	return -1
+}
+
+// FindIndices takes a predicate `p` and a slice `s` and returns an int slice
+// of all the indices of the elements that satisfy `p`.
+//
+// See FindIndex if you want to return the first index only.
+func FindIndices[T any](p func(T) bool, s []T) []int {
+	out := make([]int, 0, len(s))
+	for i, el := range s {
+		if p(el) {
+			out = append(out, i)
+		}
+	}
+	return out
 }
 
 func FindAll[T any](p func(T) bool, s []T) []int {
