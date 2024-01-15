@@ -9,6 +9,14 @@ import (
 	f "github.com/wipdev-tech/funprog"
 )
 
+func hasPrefixH(s string) bool {
+	return strings.HasPrefix(s, "h")
+}
+
+func isEven(x int) bool {
+	return x%2 == 0
+}
+
 func TestMap(t *testing.T) {
 	s1 := []int{1, 2, 3, 5}
 	f1 := func(x int) int {
@@ -31,23 +39,17 @@ func TestMap(t *testing.T) {
 }
 
 func TestFilter(t *testing.T) {
-	s1 := []int32{1, 2, 3, 5}
-	f1 := func(x int32) bool {
-		return x%2 == 0
-	}
-	e1 := []int32{2}
-	r1 := f.Filter(f1, s1)
+	s1 := []int{1, 2, 3, 5}
+	e1 := []int{2}
+	r1 := f.Filter(isEven, s1)
 
 	if !slices.Equal(r1, e1) {
 		t.Fatalf("Expected %v, got %v", e1, r1)
 	}
 
 	s2 := []string{"hello", "world", "hi"}
-	f2 := func(s string) bool {
-		return strings.HasPrefix(s, "h")
-	}
 	e2 := []string{"hello", "hi"}
-	r2 := f.Filter(f2, s2)
+	r2 := f.Filter(hasPrefixH, s2)
 
 	if !slices.Equal(r2, e2) {
 		t.Fatalf("Expected %v, got %v", e2, r2)
@@ -82,15 +84,9 @@ func TestReduce(t *testing.T) {
 }
 
 func TestComp(t *testing.T) {
-	f1 := func(x int) int {
-		return x / 7
-	}
-	f2 := func(x int) int {
-		return x - 1
-	}
-	f3 := func(x int) int {
-		return x / 3
-	}
+	f1 := func(x int) int { return x / 7 }
+	f2 := func(x int) int { return x - 1 }
+	f3 := func(x int) int { return x / 3 }
 	e1 := f3(f2(f1(49)))
 	r1 := f.Comp(f3, f2, f1)(49)
 
@@ -136,5 +132,33 @@ func TestCompR(t *testing.T) {
 
 	if r2 != e2 {
 		t.Fatalf("Expected %v, got %v", e2, r2)
+	}
+}
+
+func TestAny(t *testing.T) {
+	s1 := []string{"hello", "lol", "hershey"}
+	r1 := f.Any(hasPrefixH, s1)
+	if !r1 {
+		t.Fatalf("`f.Any(hasPrefixH, s1)` should be true")
+	}
+
+	s2 := []int{3, 1, 5}
+	r2 := f.Any(isEven, s2)
+	if r2 {
+		t.Fatalf("`f.Any(isEven, s2)` should be false")
+	}
+}
+
+func TestAll(t *testing.T) {
+	s1 := []string{"hello", "hi", "hershey"}
+	r1 := f.All(hasPrefixH, s1)
+	if !r1 {
+		t.Fatalf("`f.All(hasPrefixH, s1)` should be true")
+	}
+
+	s2 := []int{3, 1, 5}
+	r2 := f.Any(isEven, s2)
+	if r2 {
+		t.Fatalf("`f.All(isEven, s2)` should be false")
 	}
 }

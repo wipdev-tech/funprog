@@ -27,12 +27,22 @@ func Filter[T any](p func(T) bool, s []T) []T {
 	return out
 }
 
+// func Any takes a predicate `p` and a slice `s` and returns true if any
+// element of `s` satisfies `p` (and false otherwise).
 func Any[T any](p func(T) bool, s []T) bool {
-	return false
+	if len(s) == 0 {
+		return false
+	}
+	return p(s[0]) || Any(p, s[1:])
 }
 
+// func Any takes a predicate `p` and a slice `s` and returns true if all
+// element of `s` satisfy `p` (and false otherwise).
 func All[T any](p func(T) bool, s []T) bool {
-	return false
+	if len(s) == 0 {
+		return true
+	}
+	return p(s[0]) && All(p, s[1:])
 }
 
 func Find[T any](p func(T) bool, s []T) int {
