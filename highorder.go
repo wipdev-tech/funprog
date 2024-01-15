@@ -2,9 +2,9 @@ package funprog
 
 import "slices"
 
-// func Map implements the common high-order function `map`. It takes a
-// function and a slice of some type, applies the function on each element of
-// the slice, and returns a new slice of the same type.
+// Map implements the common high-order function `map`. It takes a function and
+// a slice of some type, applies the function on each element of the slice, and
+// returns a new slice of the same type.
 func Map[T any](f func(T) T, s []T) []T {
 	out := make([]T, len(s))
 	for i, el := range s {
@@ -13,7 +13,7 @@ func Map[T any](f func(T) T, s []T) []T {
 	return out
 }
 
-// func Filter implements the common high-order function `filter`. It takes a
+// Filter implements the common high-order function `filter`. It takes a
 // function (predicate) and a slice of some type, and it returns a slice
 // containing the elements of the input slice for which the predicate returns
 // true.
@@ -27,8 +27,8 @@ func Filter[T any](p func(T) bool, s []T) []T {
 	return out
 }
 
-// func Any takes a predicate `p` and a slice `s` and returns true if any
-// element of `s` satisfies `p` (and false otherwise).
+// Any takes a predicate `p` and a slice `s` and returns true if any element of
+// `s` satisfies `p` (and false otherwise).
 func Any[T any](p func(T) bool, s []T) bool {
 	if len(s) == 0 {
 		return false
@@ -36,8 +36,8 @@ func Any[T any](p func(T) bool, s []T) bool {
 	return p(s[0]) || Any(p, s[1:])
 }
 
-// func Any takes a predicate `p` and a slice `s` and returns true if all
-// element of `s` satisfy `p` (and false otherwise).
+// Any takes a predicate `p` and a slice `s` and returns true if all element of
+// `s` satisfy `p` (and false otherwise).
 func All[T any](p func(T) bool, s []T) bool {
 	if len(s) == 0 {
 		return true
@@ -53,7 +53,7 @@ func FindAll[T any](p func(T) bool, s []T) []int {
 	return []int{}
 }
 
-// func Reduce implements the common high-order function `reduce`. It takes a
+// Reduce implements the common high-order function `reduce`. It takes a
 // function and a slice. The input function must have two parameters so that
 // the first one would be the "accumulator" and the second would be the next
 // element in the slice.
@@ -68,7 +68,7 @@ func Reduce[T any](f func(T, T) T, s []T) T {
 	return acc
 }
 
-// func Comp is a high-order function that implements composition. Given an
+// Comp is a high-order function that implements composition. Given an
 // arbitrary number of functions as input, Comp will return a function so that
 // Comp(f, g)(x) == f(g(x)).
 func Comp[T any](fs ...func(T) T) func(T) T {
@@ -85,7 +85,7 @@ func Comp[T any](fs ...func(T) T) func(T) T {
 	}
 }
 
-// func CompR is the inverse of Comp. Given an arbitrary number of functions as
+// CompR is the inverse of Comp. Given an arbitrary number of functions as
 // input, Comp will return a function so that Comp(f, g)(x) == g(f(x)).
 func CompR[T any](fs ...func(T) T) func(T) T {
 	slices.Reverse(fs)
