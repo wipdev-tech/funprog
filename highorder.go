@@ -94,6 +94,9 @@ func Reduce[TIn any, TAcc any](f func(TAcc, TIn) TAcc, s []TIn) TAcc {
 // Comp is a high-order function that implements composition. Given an
 // arbitrary number of functions as input, Comp will return a function so that
 // Comp(f, g)(x) == f(g(x)).
+//
+// This is an initial implementation which works only on functions that return
+// the same type as their input.
 func Comp[T any](fs ...func(T) T) func(T) T {
 	if len(fs) == 0 {
 		return func(x T) T {
@@ -110,7 +113,22 @@ func Comp[T any](fs ...func(T) T) func(T) T {
 
 // CompR is the inverse of Comp. Given an arbitrary number of functions as
 // input, Comp will return a function so that Comp(f, g)(x) == g(f(x)).
+//
+// This is an initial implementation which works only on functions that return
+// the same type as their input.
 func CompR[T any](fs ...func(T) T) func(T) T {
 	slices.Reverse(fs)
 	return Comp(fs...)
+}
+
+// Comp2 is a high-order function that implements composition. Given two
+// functions as input, it will return a function so that Comp2(f, g)(x) ==
+// f(g(x)).
+//
+// When composing two functions, this one is more preferable to CompAll as it
+// has less general type constraints.
+func Comp2[TIn any, TMid any, TOut any](f func(TMid) TOut, g func(TIn) TMid) func(TIn) TOut {
+	return func(x TIn) TOut {
+		return f(g(x))
+	}
 }

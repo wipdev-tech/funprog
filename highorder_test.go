@@ -153,6 +153,18 @@ func TestCompR(t *testing.T) {
 	}
 }
 
+func TestComp2(t *testing.T) {
+	s := "hello"
+	f1 := func(x string) int { return len(x) }
+	f2 := func(x int) int { return x * 2 }
+	e := 10
+	r := f.Comp2(f2, f1)(s)
+
+	if r != e {
+		t.Fatalf("Expected %v, got %v", e, r)
+	}
+}
+
 func TestAny(t *testing.T) {
 	s1 := []string{"hello", "lol", "hershey"}
 	r1 := f.Any(hasPrefixH, s1)
