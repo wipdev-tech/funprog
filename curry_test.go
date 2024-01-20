@@ -1,15 +1,15 @@
-package funprog_test
+package funutils_test
 
 import (
 	"testing"
 
-	f "github.com/wipdev-tech/funprog"
+	f "github.com/wipdev-tech/funutils"
 )
 
 func TestCurry(t *testing.T) {
-    f.Curry()
+	f.Curry()
 }
 
 func TestPartApply(t *testing.T) {
-    f.PartApply()
+	f.PartApply()
 }

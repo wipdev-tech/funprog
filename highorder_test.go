@@ -1,4 +1,4 @@
-package funprog_test
+package funutils_test
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	f "github.com/wipdev-tech/funprog"
+	f "github.com/wipdev-tech/funutils"
 )
 
 func hasPrefixH(s string) bool {

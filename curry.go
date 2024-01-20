@@ -1,4 +1,4 @@
-package funprog
+package funutils
 
 func Curry() {
 }
