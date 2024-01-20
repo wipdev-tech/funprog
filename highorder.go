@@ -5,8 +5,8 @@ import "slices"
 // Map implements the common high-order function `map`. It takes a function and
 // a slice of some type, applies the function on each element of the slice, and
 // returns a new slice of the same type.
-func Map[T any](f func(T) T, s []T) []T {
-	out := make([]T, len(s))
+func Map[TIn any, TOut any](f func(TIn) TOut, s []TIn) []TOut {
+	out := make([]TOut, len(s))
 	for i, el := range s {
 		out[i] = f(el)
 	}
@@ -83,8 +83,8 @@ func FindAll[T any](p func(T) bool, s []T) []int {
 //
 // Note that the initial value of the accumulator is set to the zero value of
 // whatever type (T) returned by Reduce.
-func Reduce[T any](f func(T, T) T, s []T) T {
-	var acc T
+func Reduce[TIn any, TAcc any](f func(TAcc, TIn) TAcc, s []TIn) TAcc {
+	var acc TAcc
 	for _, v := range s {
 		acc = f(acc, v)
 	}

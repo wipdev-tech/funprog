@@ -36,6 +36,15 @@ func TestMap(t *testing.T) {
 	if !slices.Equal(r2, e2) {
 		t.Fatalf("Expected %v, got %v", e2, r2)
 	}
+
+	e3 := []int{5, 5}
+	f3 := func(x string) int {
+		return len(x)
+	}
+	r3 := f.Map(f3, s2)
+	if !slices.Equal(r3, e3) {
+		t.Fatalf("Expected %v, got %v", e3, r3)
+	}
 }
 
 func TestFilter(t *testing.T) {
@@ -80,6 +89,15 @@ func TestReduce(t *testing.T) {
 
 	if r2 != e2 {
 		t.Fatalf("Expected %v, got %v", e2, r2)
+	}
+
+	f3 := func(x int, y string) int {
+		return x + len(y)
+	}
+	e3 := 12
+	r3 := f.Reduce(f3, s2)
+	if r3 != e3 {
+		t.Fatalf("Expected %v, got %v", e3, r3)
 	}
 }
 
